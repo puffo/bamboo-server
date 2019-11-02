@@ -13,7 +13,7 @@
 
 service: products
 # app and org for use with dashboard.serverless.com
-app: products
+app: bamboo-server
 org: gcantarin
 
 # You can pin your service to only deploy with a specific Serverless version

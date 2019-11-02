@@ -18,7 +18,8 @@
     "url": "git+https://github.com/puffo/bamboo-server.git"
   },
   "scripts": {
-    "test": "echo \"Contract tests not yet setup!\""
+    "test": "echo \"Contract tests not yet setup!\"",
+    "deploy": "sls deploy"
   },
   "bugs": {
     "url": "https://github.com/puffo/bamboo-server/issues"
