@@ -7,8 +7,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lerna run --concurrency 1 --stream precommit",
-      "pre-push": "lerna run test",
+      "pre-commit": "lerna run --concurrency 1 --stream precommit && lerna run test",
       "post-merge": "lerna run deploy"
     }
   }
