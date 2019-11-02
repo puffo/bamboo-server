@@ -12,6 +12,21 @@
 # Happy Coding!
 
 service: contracts
+plugins:
+  - serverless-dynamodb-local
+  - serverless-offline
+
+custom:
+  dynamodb:
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
+    migration:
+      dir: offline/migrations
+    stages:
+      - dev
+
 # app and org for use with dashboard.serverless.com
 app: bamboo-server
 org: gcantarin
@@ -23,6 +38,18 @@ org: gcantarin
 provider:
   name: aws
   runtime: nodejs10.x
+  environment:
+    DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
 
 # you can overwrite defaults here
 #  stage: dev
@@ -56,10 +83,46 @@ provider:
 #  exclude:
 #    - exclude-me.js
 #    - exclude-me-dir/**
-
 functions:
-  hello:
-    handler: handler.hello
+  create:
+    handler: lib/create.create
+    events:
+      - http:
+          path: contracts
+          method: post
+          cors: true
+
+  list:
+    handler: lib/list.list
+    events:
+      - http:
+          path: contracts
+          method: get
+          cors: true
+
+  get:
+    handler: lib/get.get
+    events:
+      - http:
+          path: contracts/{id}
+          method: get
+          cors: true
+
+  update:
+    handler: lib/update.update
+    events:
+      - http:
+          path: contracts/{id}
+          method: put
+          cors: true
+
+  delete:
+    handler: lib/delete.delete
+    events:
+      - http:
+          path: contracts/{id}
+          method: delete
+          cors: true
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
@@ -111,3 +174,20 @@ functions:
 #     NewOutput:
 #       Description: "Description for the output"
 #       Value: "Some output value"
+
+resources:
+  Resources:
+    ContractsDynamoDbTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${self:provider.environment.DYNAMODB_TABLE}
