@@ -18,7 +18,7 @@
     "url": "git+https://github.com/puffo/bamboo-server.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "test": "echo \"Contract tests not yet setup!\""
   },
   "bugs": {
     "url": "https://github.com/puffo/bamboo-server/issues"
