@@ -1,0 +1,26 @@
+{
+  "name": "contracts",
+  "version": "0.0.1",
+  "description": "Contracts service for Bamboo Insurance",
+  "author": "puffo <puffo@users.noreply.github.com>",
+  "homepage": "https://github.com/puffo/bamboo-server#readme",
+  "license": "ISC",
+  "main": "lib/contracts.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/puffo/bamboo-server.git"
+  },
+  "scripts": {
+    "test": "echo \"Contract tests not yet setup!\""
+  },
+  "bugs": {
+    "url": "https://github.com/puffo/bamboo-server/issues"
+  }
+}
