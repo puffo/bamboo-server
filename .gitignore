@@ -4,6 +4,10 @@ jspm_packages
 
 # Serverless directories
 .serverless
+.dynamodb
 
 # logs
 *.log
+
+# apple cruft
+*.DS_Store
