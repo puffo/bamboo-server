@@ -10,7 +10,7 @@ module.exports.delete = (event, context, callback) => {
         },
     }
 
-    // delete the todo from the database
+    // delete the User from the database
     dynamodb.delete(params, error => {
         // handle potential errors
         if (error) {
@@ -18,7 +18,7 @@ module.exports.delete = (event, context, callback) => {
             callback(null, {
                 statusCode: error.statusCode || 501,
                 headers: { 'Content-Type': 'text/plain' },
-                body: "Couldn't remove the todo item.",
+                body: "Couldn't remove the User item.",
             })
             return
         }

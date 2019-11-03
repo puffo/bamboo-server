@@ -7,12 +7,15 @@ module.exports.update = (event, context, callback) => {
     const data = JSON.parse(event.body)
 
     // validation
-    if (typeof data.text !== 'string' || typeof data.checked !== 'boolean') {
+    if (
+        typeof data.email !== 'string' ||
+        (data.mobileNumber && typeof data.mobileNumber !== 'string')
+    ) {
         console.error('Validation Failed')
         callback(null, {
             statusCode: 400,
             headers: { 'Content-Type': 'text/plain' },
-            body: "Couldn't update the todo item.",
+            body: "Couldn't update the User item.",
         })
         return
     }
@@ -23,19 +26,19 @@ module.exports.update = (event, context, callback) => {
             id: event.pathParameters.id,
         },
         ExpressionAttributeNames: {
-            '#todo_text': 'text',
+            '#user_email': 'email',
         },
         ExpressionAttributeValues: {
-            ':text': data.text,
-            ':checked': data.checked,
+            ':email': data.email,
+            ':mobileNumber': data.mobileNumber,
             ':updatedAt': timestamp,
         },
         UpdateExpression:
-            'SET #todo_text = :text, checked = :checked, updatedAt = :updatedAt',
+            'SET #user_email = :email, mobileNumber = :mobileNumber, updatedAt = :updatedAt',
         ReturnValues: 'ALL_NEW',
     }
 
-    // update the todo in the database
+    // update the User in the database
     dynamodb.update(params, (error, result) => {
         // handle potential errors
         if (error) {
@@ -43,7 +46,7 @@ module.exports.update = (event, context, callback) => {
             callback(null, {
                 statusCode: error.statusCode || 501,
                 headers: { 'Content-Type': 'text/plain' },
-                body: "Couldn't update the todo item.",
+                body: "Couldn't update the User item.",
             })
             return
         }

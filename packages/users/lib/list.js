@@ -7,7 +7,7 @@ module.exports.list = (event, context, callback) => {
         TableName: process.env.DYNAMODB_TABLE,
     }
 
-    // fetch all todos from the database
+    // fetch all Users from the database
     dynamodb.scan(params, (error, result) => {
         // handle potential errors
         if (error) {
@@ -15,7 +15,7 @@ module.exports.list = (event, context, callback) => {
             callback(null, {
                 statusCode: error.statusCode || 501,
                 headers: { 'Content-Type': 'text/plain' },
-                body: "Couldn't fetch the todo item.",
+                body: "Couldn't fetch the User item.",
             })
             return
         }

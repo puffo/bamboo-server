@@ -6,12 +6,15 @@ const dynamodb = require('./dynamodb')
 module.exports.create = (event, context, callback) => {
     const timestamp = new Date().getTime()
     const data = JSON.parse(event.body)
-    if (typeof data.text !== 'string') {
+    if (
+        typeof data.email !== 'string' ||
+        (data.mobileNumber && typeof data.mobileNumber !== 'string')
+    ) {
         console.error('Validation Failed')
         callback(null, {
             statusCode: 400,
             headers: { 'Content-Type': 'text/plain' },
-            body: "Couldn't create the todo item.",
+            body: "Couldn't create the User item.",
         })
         return
     }
@@ -20,14 +23,14 @@ module.exports.create = (event, context, callback) => {
         TableName: process.env.DYNAMODB_TABLE,
         Item: {
             id: uuid.v1(),
-            text: data.text,
-            checked: false,
+            email: data.email,
+            mobileNumber: data.mobileNumber,
             createdAt: timestamp,
             updatedAt: timestamp,
         },
     }
 
-    // write the todo to the database
+    // write the User to the database
     dynamodb.put(params, error => {
         // handle potential errors
         if (error) {
@@ -35,7 +38,7 @@ module.exports.create = (event, context, callback) => {
             callback(null, {
                 statusCode: error.statusCode || 501,
                 headers: { 'Content-Type': 'text/plain' },
-                body: "Couldn't create the todo item.",
+                body: "Couldn't create the User item.",
             })
             return
         }
