@@ -7,6 +7,7 @@ module.exports.create = (event, context, callback) => {
     const timestamp = new Date().getTime()
     const data = JSON.parse(event.body)
     if (
+        typeof data.externalReference !== 'string' ||
         typeof data.email !== 'string' ||
         (data.mobileNumber && typeof data.mobileNumber !== 'string')
     ) {
@@ -23,6 +24,7 @@ module.exports.create = (event, context, callback) => {
         TableName: process.env.DYNAMODB_TABLE,
         Item: {
             id: uuid.v1(),
+            externalReference: data.externalReference,
             email: data.email,
             mobileNumber: data.mobileNumber,
             createdAt: timestamp,

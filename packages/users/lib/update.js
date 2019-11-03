@@ -8,6 +8,7 @@ module.exports.update = (event, context, callback) => {
 
     // validation
     if (
+        typeof data.externalReference !== 'string' ||
         typeof data.email !== 'string' ||
         (data.mobileNumber && typeof data.mobileNumber !== 'string')
     ) {
@@ -29,12 +30,13 @@ module.exports.update = (event, context, callback) => {
             '#user_email': 'email',
         },
         ExpressionAttributeValues: {
+            ':externalReference': data.externalReference,
             ':email': data.email,
             ':mobileNumber': data.mobileNumber,
             ':updatedAt': timestamp,
         },
         UpdateExpression:
-            'SET #user_email = :email, mobileNumber = :mobileNumber, updatedAt = :updatedAt',
+            'SET #user_email = :email, externalReference = :externalReference, mobileNumber = :mobileNumber, updatedAt = :updatedAt',
         ReturnValues: 'ALL_NEW',
     }
 
