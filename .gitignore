@@ -11,3 +11,5 @@ jspm_packages
 
 # apple cruft
 *.DS_Store
+
+*.env

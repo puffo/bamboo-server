@@ -7,7 +7,7 @@ class Messenger {
   }
 
   verify(event) {
-    this.client.verify
+    return this.client.verify
       .services(process.env.VERIFICATION_SID)
       .verifications.create({ to: JSON.parse(event.body).to, channel: "sms" })
       .then(verification => console.log(verification.status));
