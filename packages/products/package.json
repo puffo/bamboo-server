@@ -47,5 +47,8 @@
       "eslint --fix",
       "git add"
     ]
+  },
+  "dependencies": {
+    "uuid": "^3.3.3"
   }
 }
