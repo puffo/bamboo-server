@@ -6,10 +6,26 @@ class Messenger {
     this.client = client;
   }
 
-  verify(event) {
+  createVerification(event) {
+    const mobileNumber = JSON.parse(event.body).to;
+
     return this.client.verify
       .services(process.env.VERIFICATION_SID)
-      .verifications.create({ to: JSON.parse(event.body).to, channel: "sms" })
+      .verifications.create({ to: mobileNumber, channel: "sms" })
+      .then(verification => console.log(verification.status));
+  }
+
+  checkVerification(event) {
+    const data = JSON.parse(event.body);
+    const mobileNumber = data.to;
+    const code = data.code;
+
+    return this.client.verify
+      .services(process.env.VERIFICATION_SID)
+      .verificationChecks.create({
+        to: mobileNumber,
+        code: code
+      })
       .then(verification => console.log(verification.status));
   }
 }

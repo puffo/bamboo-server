@@ -6,7 +6,7 @@ const twilioAccountSid = process.env.TWILIO_ACCOUNT_SID;
 const twilioAuthToken = process.env.TWILIO_AUTH_TOKEN;
 const twilioClient = require("twilio")(twilioAccountSid, twilioAuthToken); // eslint-disable-line
 
-module.exports.login = (event, context, callback) => {
+module.exports.confirm = (event, context, callback) => {
   const messenger = new Messenger(twilioClient);
 
   const response = {
@@ -17,10 +17,10 @@ module.exports.login = (event, context, callback) => {
   Object.assign(event, { from: process.env.TWILIO_PHONE_NUMBER });
 
   messenger
-    .createVerification(event)
+    .checkVerification(event)
     .then(message => {
       response.body = JSON.stringify({
-        message: "Verification sent!",
+        message: "Number confirmed!",
         data: message
       });
       callback(null, response);
