@@ -124,6 +124,14 @@ functions:
           path: users/{id}
           method: delete
           cors: true
+
+  login:
+    handler: lib/login.login
+    events:
+      - http:
+          path: login
+          method: post
+          cors: true
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details

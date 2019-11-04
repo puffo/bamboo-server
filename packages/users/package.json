@@ -1,54 +1,56 @@
 {
-    "name": "users",
-    "version": "0.0.1",
-    "description": "Users service packages for Bamboo Insurance",
-    "author": "puffo <puffo@users.noreply.github.com>",
-    "homepage": "https://github.com/puffo/bamboo-server#readme",
-    "license": "ISC",
-    "main": "lib/users.js",
-    "directories": {
-        "lib": "lib",
-        "test": "__tests__"
-    },
-    "files": [
-        "lib"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/puffo/bamboo-server.git"
-    },
-    "scripts": {
-        "test": "echo \"User tests not yet setup!\"",
-        "deploy": "sls deploy"
-    },
-    "bugs": {
-        "url": "https://github.com/puffo/bamboo-server/issues"
-    },
-    "devDependencies": {
-        "eslint": "^6.6.0",
-        "eslint-plugin-react": "^7.16.0",
-        "husky": "^3.0.9",
-        "lint-staged": "^9.4.2",
-        "prettier": "1.18.2",
-        "serverless-dynamodb-local": "^0.2.38",
-        "serverless-offline": "^5.12.0"
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "lint-staged"
-        }
-    },
-    "lint-staged": {
-        "*.{js,css,json,md}": [
-            "prettier --write",
-            "git add"
-        ],
-        "*.js": [
-            "eslint --fix",
-            "git add"
-        ]
-    },
-    "dependencies": {
-        "uuid": "^3.3.3"
+  "name": "users",
+  "version": "0.0.1",
+  "description": "Users service packages for Bamboo Insurance",
+  "author": "puffo <puffo@users.noreply.github.com>",
+  "homepage": "https://github.com/puffo/bamboo-server#readme",
+  "license": "ISC",
+  "main": "lib/users.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/puffo/bamboo-server.git"
+  },
+  "scripts": {
+    "test": "echo \"User tests not yet setup!\"",
+    "deploy": "sls deploy"
+  },
+  "bugs": {
+    "url": "https://github.com/puffo/bamboo-server/issues"
+  },
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-plugin-react": "^7.16.0",
+    "husky": "^3.0.9",
+    "lint-staged": "^9.4.2",
+    "prettier": "1.18.2",
+    "serverless-dynamodb-local": "^0.2.38",
+    "serverless-offline": "^5.12.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "*.{js,css,json,md}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "twilio": "^3.37.0",
+    "uuid": "^3.3.3"
+  }
 }
